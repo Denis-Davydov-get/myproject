@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{%endblock %}
+
+{% block content %}
+    <div class="container">
+
+    {% if client %}
+        {% for ord in order  %}
+            <p>Products in Order:</p>
+            <ul>
+                {% for product in ord.products.all %}
+                    <li>{{ product.product_name }} - {{ product.price }}$</li>
+                {% endfor %}
+            </ul>
+            <p>Total Amount: {{ ord.total_price }}$</p>
+            <p>Order Date: {{ ord.date_ordered }}</p>
+            <hr>
+            <br>
+        {% endfor %}
+
+        <h3>Orders by last week</h3>
+        {% for product in products_week %}
+            {{ product.product_name }} -
+            {{ product.quantity }} -
+            {{ product.price }}$<br>
+        {% endfor %}
+
+        <h3>Orders by last month</h3>
+        {% for product in products_week %}
+            {{ product.product_name }} -
+            {{ product.count_product }}<br>
+        {% endfor %}
+
+        <h3>Orders by last year</h3>
+        {% for product in products_week %}
+            {{ product.product_name }} -
+            {{ product.count_product }}<br>
+        {% endfor %}
+
+    {% else %}
+        <ul>
+            {% for ord in order %}
+                <h3>
+                    Order by
+                    <a href='{% url "orders" ord.customer.id %}'>{{ ord.customer }}</a>
+                </h3>
+                <li>Total Amount: {{ ord.total_price }}$</li>
+                <li>Order Date: {{ ord.date_ordered }}</li>
+                <hr>
+                <br>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+{% endblock %}

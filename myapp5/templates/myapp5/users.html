@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+            <ul>
+                {% for user in users %}
+                    <li>
+                        name - {{ user.name }}.
+                        email - {{user.email}}.
+                        phone - {{ user.phone }}$.
+                        address - {{ user.address }}.
+                        date_create- {{ user.date_create }}.<br>
+                    </li>
+               {% endfor %}
+            </ul>
+            <hr>
+            <br>
+
+{% endblock %}
